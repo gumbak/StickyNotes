@@ -20,11 +20,11 @@ namespace StickyNotes
     /// </summary>
     public partial class MainWindow : Window
     {
-        private StickyNotesController controller;
+        private Controller controller;
         public MainWindow()
         {
             InitializeComponent();
-            controller = new StickyNotesController();
+            controller = new Controller();
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
