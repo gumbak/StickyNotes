@@ -45,5 +45,10 @@ namespace StickyNotes
             }
             return null;
         }
+
+        public void getAllNoteIds()
+        {
+
+        }
     }
 }
