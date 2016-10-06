@@ -25,7 +25,14 @@ namespace StickyNotes
 
         private void restoreNotes()
         {
-            _database.getAllNoteIds();
+            List<string> noteIds = _database.getAllNoteIds();
+            if (noteIds == null || noteIds.Count == 0)
+            {
+               createNote(createId());
+            } else
+            {
+                
+            }
         }
 
         private void createNote(string id)
@@ -33,6 +40,11 @@ namespace StickyNotes
             Controller controller = new Controller(id);
             controller.start();
             _controllers.Add(controller);
+        }
+
+        private string createId()
+        {
+            return Guid.NewGuid().ToString();
         }
     }
 }

@@ -40,15 +40,18 @@ namespace StickyNotes
             var cursor = await collection.FindAsync(filter);
             while (await cursor.MoveNextAsync())
             {
-                var document = cursor.Current.First();
-                return document.GetValue(fieldName).AsString;
+                if (cursor.Current.Count() != 0)
+                {
+                    var document = cursor.Current.First();
+                    return document.GetValue(fieldName).AsString;
+                }
             }
             return null;
         }
 
-        public void getAllNoteIds()
+        public List<string> getAllNoteIds()
         {
-
+            return null;
         }
     }
 }

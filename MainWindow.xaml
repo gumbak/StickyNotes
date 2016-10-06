@@ -7,8 +7,10 @@
         mc:Ignorable="d"
         Title="Sticky Note" Height="350" Width="525">
     <Grid>
-        <TextBox HorizontalAlignment="Stretch"
+        <TextBox x:Name="InputTextBox"
+                 HorizontalAlignment="Stretch"
                  VerticalAlignment="Stretch"
-                 Text="" TextChanged="TextBox_TextChanged" />
+                 Text="" 
+                 TextChanged="TextBox_TextChanged" />
     </Grid>
 </Window>

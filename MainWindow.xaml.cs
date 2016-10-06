@@ -30,12 +30,34 @@ namespace StickyNotes
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
+            TextBox inputTextBox = (TextBox)sender;
             _controller.triggerDelayedSave();
         }
 
         public void setContent(string content)
         {
+            this.Dispatcher.Invoke(() =>
+                {
+                    if (content != null)
+                    {
+                        TextBox inputTextBox = (TextBox)this.FindName("InputTextBox");
+                        inputTextBox.Text = content;
+                    }
+                    this.Show();
+                }
+            );
+        }
 
+        public string getContent()
+        {
+            string content = "";
+            this.Dispatcher.Invoke(() =>
+                {
+                    TextBox inputTextBox = (TextBox)this.FindName("InputTextBox");
+                    content = inputTextBox.Text;
+                }
+            );
+            return content;
         }
     }
 }

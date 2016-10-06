@@ -36,7 +36,7 @@ namespace StickyNotes
             {
                 if (_delayedSaveThread == null)
                 {
-                    _delayedSaveThread = new Thread(this.doDelayedSave);
+                    _delayedSaveThread = new Thread(() => doDelayedSave());
                     _delayedSaveThread.Start();
                 }
             }
@@ -46,17 +46,18 @@ namespace StickyNotes
         private void doDelayedSave()
         {
             Thread.Sleep(SAVE_DELAY);
-            save();
+            string content = _window.getContent();
+            save(content);
             lock (_delayedSaveLock)
             {
                 _delayedSaveThread = null;
             }
         }
 
-        private void save()
+        private void save(string content)
         {
             // TODO: pass content
-            _database.save(_id, "temp");
+            _database.save(_id, content);
         }
 
         public async Task<string> getContent()
