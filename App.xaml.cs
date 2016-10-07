@@ -25,19 +25,24 @@ namespace StickyNotes
 
         private void restoreNotes()
         {
-            List<string> noteIds = _database.getAllNoteIds();
-            if (noteIds == null || noteIds.Count == 0)
+            List<MongoDB.Bson.BsonDocument> noteData = _database.getAllNoteData();
+            if (noteData == null || noteData.Count == 0)
             {
-               createNote(createId());
+               createNote(createId(), "");
             } else
             {
-                
+                foreach (var data in noteData)
+                {
+                    var id = data.GetValue("id").ToString();
+                    var content = data.GetValue("content").ToString();
+                      createNote(id, content);
+                }
             }
         }
 
-        private void createNote(string id)
+        private void createNote(string id, string content) 
         {
-            Controller controller = new Controller(id);
+            Controller controller = new Controller(id, content);
             controller.start();
             _controllers.Add(controller);
         }

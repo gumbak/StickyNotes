@@ -17,17 +17,17 @@ namespace StickyNotes
         private Thread _delayedSaveThread;
         private Object _delayedSaveLock = new Object();
 
-        public Controller(string id)
+        public Controller(string id, string content)
         {
             _id = id;
             _database = new StickyNotes.Database();
-            _window = new MainWindow(this);       
+            _window = new MainWindow(this);
+            _window.setContent(content);
         }
 
         public async void start()
         {
             string content = await getContent();
-            _window.setContent(content);
         }
 
         public void triggerDelayedSave()

@@ -47,11 +47,18 @@ namespace StickyNotes
                 }
             }
             return null;
+        }        
+
+        public List<BsonDocument> getAllNoteData()
+        {
+            IMongoCollection<BsonDocument> collection = _database.GetCollection<BsonDocument>(COLLECTION_PATH);
+            return collection.Find(new BsonDocument()).ToList();            
         }
 
-        public List<string> getAllNoteIds()
+        public void reset()
         {
-            return null;
+            IMongoCollection<BsonDocument> collection = _database.GetCollection<BsonDocument>(COLLECTION_PATH);
+            collection.DeleteMany(new BsonDocument());
         }
     }
 }
