@@ -59,5 +59,19 @@ namespace StickyNotes
             );
             return content;
         }
+
+        private void CommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+
+        }
+    }
+
+    public static class CustomCommands
+    {
+        public static readonly RoutedUICommand DeleteAll = new RoutedUICommand(
+            "DeleteAll",
+            "DeleteAll",
+            typeof(CustomCommands)
+        );
     }
 }

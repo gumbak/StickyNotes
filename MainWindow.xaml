@@ -6,11 +6,19 @@
         xmlns:local="clr-namespace:StickyNotes"
         mc:Ignorable="d"
         Title="Sticky Note" Height="350" Width="525">
-    <Grid>
+    <Window.CommandBindings>
+        <CommandBinding Command="local:CustomCommands.DeleteAll" />
+    </Window.CommandBindings>
+    <DockPanel>
+        <ToolBarTray DockPanel.Dock="Top">
+            <ToolBar>
+                <Button Command="local:CustomCommands.DeleteAll" Content="Delete All" />
+            </ToolBar>
+        </ToolBarTray>
         <TextBox x:Name="InputTextBox"
                  HorizontalAlignment="Stretch"
                  VerticalAlignment="Stretch"
                  Text="" 
                  TextChanged="TextBox_TextChanged" />
-    </Grid>
+    </DockPanel>
 </Window>
