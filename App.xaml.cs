@@ -19,10 +19,6 @@ namespace StickyNotes
         {
             _manager = new Manager();
             _manager.restoreNotes();
-        }
-
-        
-
-        
+        }      
     }
 }

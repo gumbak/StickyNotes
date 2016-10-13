@@ -54,5 +54,12 @@ namespace StickyNotes
                 }
             }
         }
+
+        public void deleteNote(Controller controller)
+        {
+            _database.deleteNote(controller.id);
+            controller.exit();
+            _controllers.Remove(controller);
+        }
     }
 }

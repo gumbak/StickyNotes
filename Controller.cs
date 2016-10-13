@@ -10,17 +10,17 @@ namespace StickyNotes
 {
     public class Controller
     {
+        public string id;
         private Database _database;
         private MainWindow _window;
         private Manager _manager;
-        private string _id;
         private int SAVE_DELAY = 3000;
         private Thread _delayedSaveThread;
         private Object _delayedSaveLock = new Object();
 
         public Controller(string id, string content, Manager manager)
         {
-            _id = id;
+            this.id = id;
             _database = new StickyNotes.Database();
             _manager = manager;
             _window = new MainWindow(this);
@@ -32,9 +32,19 @@ namespace StickyNotes
             _manager.createNote();
         }
 
+        public void deleteNote()
+        {
+            _manager.deleteNote(this);
+        }
+
         public async void start()
         {
             string content = await getContent();
+        }
+
+        public void exit()
+        {
+            _window.Close();
         }
 
         public void triggerDelayedSave()
@@ -63,18 +73,12 @@ namespace StickyNotes
 
         private void save(string content)
         {
-            // TODO: pass content
-            _database.save(_id, content);
-        }
-
-        public void reset()
-        {
-            _database.reset();
-        }
+            _database.save(id, content);
+        }        
 
         public async Task<string> getContent()
         {
-            string content = await _database.get(_id, ConfigurationManager.AppSettings["DATABASE_FIELD_NAME_CONTENT"]);
+            string content = await _database.get(id, ConfigurationManager.AppSettings["DATABASE_FIELD_NAME_CONTENT"]);
             return content;
         }
     }    

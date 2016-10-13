@@ -64,6 +64,11 @@ namespace StickyNotes
         {
             _controller.createNote();
         }
+
+        private void Delete_Executed(object sender, System.EventArgs e)
+        {
+            _controller.deleteNote();
+        }
     }
 
     public static class CustomCommands
@@ -71,6 +76,12 @@ namespace StickyNotes
         public static readonly RoutedUICommand New = new RoutedUICommand(
             "New",
             "New",
+            typeof(CustomCommands)
+        );
+
+        public static readonly RoutedUICommand Delete = new RoutedUICommand(
+            "Delete",
+            "Delete",
             typeof(CustomCommands)
         );
     }

@@ -23,14 +23,16 @@ namespace StickyNotes
 
         public void save(string id, string content)
         {
+            var filter = Builders<BsonDocument>.Filter.Eq("id", id);
             BsonDocument document = new BsonDocument
             {
                 { "id", id },
                 { "content", content }
             };
+            var updateOptions = new UpdateOptions { IsUpsert = true };
 
             IMongoCollection<BsonDocument> collection = _database.GetCollection<BsonDocument>(COLLECTION_PATH);
-            collection.InsertOneAsync(document);
+            collection.ReplaceOne(filter, document, updateOptions);
         }
 
         public async Task<string> get(string id, string fieldName)
@@ -55,10 +57,14 @@ namespace StickyNotes
             return collection.Find(new BsonDocument()).ToList();            
         }
 
-        public void reset()
+        public void deleteNote(string id)
         {
+            BsonDocument noteToDelete = new BsonDocument()
+            {
+                { "id", id }
+            };
             IMongoCollection<BsonDocument> collection = _database.GetCollection<BsonDocument>(COLLECTION_PATH);
-            collection.DeleteMany(new BsonDocument());
+            collection.DeleteMany(noteToDelete);
         }
     }
 }
