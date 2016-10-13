@@ -60,17 +60,17 @@ namespace StickyNotes
             return content;
         }
 
-        private void CommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        private void New_Executed(object sender, System.EventArgs e)
         {
-
+            _controller.createNote();
         }
     }
 
     public static class CustomCommands
     {
-        public static readonly RoutedUICommand DeleteAll = new RoutedUICommand(
-            "DeleteAll",
-            "DeleteAll",
+        public static readonly RoutedUICommand New = new RoutedUICommand(
+            "New",
+            "New",
             typeof(CustomCommands)
         );
     }

@@ -7,12 +7,12 @@
         mc:Ignorable="d"
         Title="Sticky Note" Height="350" Width="525">
     <Window.CommandBindings>
-        <CommandBinding Command="local:CustomCommands.DeleteAll" />
+        <CommandBinding Command="local:CustomCommands.New" Executed="New_Executed" />
     </Window.CommandBindings>
     <DockPanel>
         <ToolBarTray DockPanel.Dock="Top">
             <ToolBar>
-                <Button Command="local:CustomCommands.DeleteAll" Content="Delete All" />
+                <Button Command="local:CustomCommands.New" Content="New" />
             </ToolBar>
         </ToolBarTray>
         <TextBox x:Name="InputTextBox"

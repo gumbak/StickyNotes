@@ -76,6 +76,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Manager.cs" />
     <Compile Include="Controller.cs" />
     <Compile Include="Database.cs" />
     <Compile Include="MainWindow.xaml.cs">

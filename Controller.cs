@@ -12,17 +12,24 @@ namespace StickyNotes
     {
         private Database _database;
         private MainWindow _window;
+        private Manager _manager;
         private string _id;
         private int SAVE_DELAY = 3000;
         private Thread _delayedSaveThread;
         private Object _delayedSaveLock = new Object();
 
-        public Controller(string id, string content)
+        public Controller(string id, string content, Manager manager)
         {
             _id = id;
             _database = new StickyNotes.Database();
+            _manager = manager;
             _window = new MainWindow(this);
             _window.setContent(content);
+        }
+
+        public void createNote()
+        {
+            _manager.createNote();
         }
 
         public async void start()
@@ -58,6 +65,11 @@ namespace StickyNotes
         {
             // TODO: pass content
             _database.save(_id, content);
+        }
+
+        public void reset()
+        {
+            _database.reset();
         }
 
         public async Task<string> getContent()
