@@ -27,24 +27,19 @@ namespace StickyNotes
             _window.setContent(content);
         }
 
-        public void createNote()
+        public void start()
         {
-            _manager.createNote();
+            _window.Show();
+        }
+
+        public void createEmptyNote()
+        {
+            _manager.createEmptyNote();
         }
 
         public void deleteNote()
         {
             _manager.deleteNote(this);
-        }
-
-        public async void start()
-        {
-            string content = await getContent();
-        }
-
-        public void exit()
-        {
-            _window.Close();
         }
 
         public void triggerDelayedSave()
@@ -57,7 +52,7 @@ namespace StickyNotes
                     _delayedSaveThread.Start();
                 }
             }
-            
+
         }
 
         private void doDelayedSave()
@@ -74,7 +69,12 @@ namespace StickyNotes
         private void save(string content)
         {
             _database.save(id, content);
-        }        
+        }
+
+        public void exit()
+        {
+            _window.Close();
+        }
 
         public async Task<string> getContent()
         {

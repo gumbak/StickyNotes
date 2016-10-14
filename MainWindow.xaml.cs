@@ -28,26 +28,6 @@ namespace StickyNotes
             InitializeComponent();
         }
 
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            TextBox inputTextBox = (TextBox)sender;
-            _controller.triggerDelayedSave();
-        }
-
-        public void setContent(string content)
-        {
-            this.Dispatcher.Invoke(() =>
-                {
-                    if (content != null)
-                    {
-                        TextBox inputTextBox = (TextBox)this.FindName("InputTextBox");
-                        inputTextBox.Text = content;
-                    }
-                    this.Show();
-                }
-            );
-        }
-
         public string getContent()
         {
             string content = "";
@@ -60,9 +40,28 @@ namespace StickyNotes
             return content;
         }
 
+        public void setContent(string content)
+        {
+            this.Dispatcher.Invoke(() =>
+                {
+                    if (content != null)
+                    {
+                        TextBox inputTextBox = (TextBox)this.FindName("InputTextBox");
+                        inputTextBox.Text = content;
+                    }
+                }
+            );
+        }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            TextBox inputTextBox = (TextBox)sender;
+            _controller.triggerDelayedSave();
+        }
+
         private void New_Executed(object sender, System.EventArgs e)
         {
-            _controller.createNote();
+            _controller.createEmptyNote();
         }
 
         private void Delete_Executed(object sender, System.EventArgs e)

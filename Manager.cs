@@ -17,31 +17,12 @@ namespace StickyNotes
             _database = new StickyNotes.Database();
         }
 
-        private string createId()
-        {
-            return Guid.NewGuid().ToString();
-        }
-
-        public void createNote()
-        {
-            Controller controller = createNote(createId(), "");
-            _controllers.Add(controller);
-        }
-
-        private Controller createNote(string id, string content)
-        {
-            Controller controller = new Controller(id, content, this);
-            controller.start();
-            return controller;
-        }
-
         public void restoreNotes()
         {
-            Controller controller;
             List<MongoDB.Bson.BsonDocument> noteData = _database.getAllNoteData();
             if (noteData == null || noteData.Count == 0)
             {
-                createNote();
+                createEmptyNote();
             }
             else
             {
@@ -49,10 +30,26 @@ namespace StickyNotes
                 {
                     var id = data.GetValue("id").ToString();
                     var content = data.GetValue("content").ToString();
-                    controller = createNote(id, content);
-                    _controllers.Add(controller);
+                    createNote(id, content);
                 }
             }
+        }
+
+        private string createId()
+        {
+            return Guid.NewGuid().ToString();
+        }
+
+        public void createEmptyNote()
+        {
+            createNote(createId(), "");
+        }
+
+        private void createNote(string id, string content)
+        {
+            Controller controller = new Controller(id, content, this);
+            _controllers.Add(controller);
+            controller.start();
         }
 
         public void deleteNote(Controller controller)
